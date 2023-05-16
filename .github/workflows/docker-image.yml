@@ -16,3 +16,13 @@ jobs:
     - uses: actions/checkout@v3
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+    - name: Export image to file
+      run: docker save -o apkaImage.tar my-image-name:$(date +%s)
+    - name: Upload a Build Artifact
+      uses: actions/upload-artifact@v3.1.2
+      with:
+        name: docker-image
+        path: ./apkaImage.tar
+        
+    
+    
